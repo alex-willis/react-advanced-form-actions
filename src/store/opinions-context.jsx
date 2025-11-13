@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from "react";
 
 export const OpinionsContext = createContext({
   opinions: null,
@@ -12,7 +12,7 @@ export function OpinionsContextProvider({ children }) {
 
   useEffect(() => {
     async function loadOpinions() {
-      const response = await fetch('http://localhost:3000/opinions');
+      const response = await fetch("https://r6t7vg-3000.csb.app/opinions");
       const opinions = await response.json();
       setOpinions(opinions);
     }
@@ -21,17 +21,22 @@ export function OpinionsContextProvider({ children }) {
   }, []);
 
   async function addOpinion(enteredOpinionData) {
-    const response = await fetch('http://localhost:3000/opinions', {
-      method: 'POST',
+    console.log("response?");
+    const response = await fetch("https://r6t7vg-3000.csb.app/opinions", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(enteredOpinionData),
     });
 
+    console.log("response??");
+
     if (!response.ok) {
       return;
     }
+
+    console.log("response???");
 
     const savedOpinion = await response.json();
     setOpinions((prevOpinions) => [savedOpinion, ...prevOpinions]);

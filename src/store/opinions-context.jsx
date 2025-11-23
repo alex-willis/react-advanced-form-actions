@@ -42,7 +42,18 @@ export function OpinionsContextProvider({ children }) {
     setOpinions((prevOpinions) => [savedOpinion, ...prevOpinions]);
   }
 
-  function upvoteOpinion(id) {
+  async function upvoteOpinion(id) {
+    const response = await fetch(
+      "https://r6t7vg-3000.csb.app/opinions/" + id + "/upvote",
+      {
+        method: "POST",
+      }
+    );
+
+    if (!response.ok) {
+      return;
+    }
+
     setOpinions((prevOpinions) => {
       return prevOpinions.map((opinion) => {
         if (opinion.id === id) {
@@ -53,7 +64,18 @@ export function OpinionsContextProvider({ children }) {
     });
   }
 
-  function downvoteOpinion(id) {
+  async function downvoteOpinion(id) {
+    const response = await fetch(
+      "https://r6t7vg-3000.csb.app/opinions/" + id + "/downvote",
+      {
+        method: "POST",
+      }
+    );
+
+    if (!response.ok) {
+      return;
+    }
+
     setOpinions((prevOpinions) => {
       return prevOpinions.map((opinion) => {
         if (opinion.id === id) {
